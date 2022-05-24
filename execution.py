@@ -22,5 +22,6 @@ f_plot_mag[0] = f_plot_mag[0]/2
 fig, [ax1, ax2]=plt.subplots(nrows=2,ncols=1)
 ax1.plot(timeSteps,signal,'.-')
 ax2.plot(f_plot,f_plot_mag,'.-')
+ax2.set_xlim([0, 1000])
 
 plt.show()
