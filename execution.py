@@ -10,8 +10,13 @@ numberOfSamples=int(samplingFrequency/frequency)
 timeSteps=np.linspace(0,(numberOfSamples-1)*tstep,numberOfSamples)
 fstep=samplingFrequency/numberOfSamples
 f=np.linspace(0,(numberOfSamples-1)*fstep,numberOfSamples)
-signal=1*np.sin(2*np.pi*frequency*timeSteps)+1*np.sin(4*np.pi*frequency*timeSteps)+1*np.sin(28*np.pi*frequency*timeSteps)
-
+signals=[
+  np.sin(2*np.pi*frequency*timeSteps),
+  np.sin(2*np.pi*5*frequency*timeSteps)
+]
+signal=[0.0]*numberOfSamples
+for individualSignal in signals:
+  signal=np.add(individualSignal,signal)
 fftResult = FastFourierTransform(signal);
 
 fftResult_mag=np.abs(fftResult)/len(signal)
