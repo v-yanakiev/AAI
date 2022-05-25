@@ -4,9 +4,7 @@ import matplotlib.pyplot as plt;
 def FastFourierTransform(vectorForWhichToCompute):
     vectorForWhichToCompute=np.asarray(vectorForWhichToCompute,dtype=float)
     vectorSize = vectorForWhichToCompute.shape[0]
-    if vectorSize % 2 > 0:
-        raise ValueError("Vector size must be a power of 2!")
-    elif vectorSize <= 2:
+    if vectorSize <= 2:
         return DiscreteFourierTransform(vectorForWhichToCompute)
     else:
         even = FastFourierTransform(vectorForWhichToCompute[::2])

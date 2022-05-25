@@ -30,8 +30,6 @@ for i,magnitude in enumerate(f_plot_mag):
   if magnitude>0.8:
     identifiedFrequencies.append([f_plot[i],magnitude])
 
-
-
 fig, subplotsUsed=plt.subplots(nrows=len(identifiedFrequencies)+1,ncols=1)
 subplotsUsed[0].plot(timeSteps,signal,'.-')
 subplotsUsed[0].set_xlabel("Time")
