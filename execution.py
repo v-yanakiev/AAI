@@ -10,18 +10,27 @@ numberOfSamples=int(samplingFrequency/frequency)
 timeSteps=np.linspace(0,(numberOfSamples-1)*tstep,numberOfSamples)
 fstep=samplingFrequency/numberOfSamples
 f=np.linspace(0,(numberOfSamples-1)*fstep,numberOfSamples)
-signal=1*np.sin(2*np.pi*frequency*timeSteps)+1*np.sin(10*np.pi*frequency*timeSteps)
+signal=1*np.sin(2*np.pi*frequency*timeSteps)+1*np.sin(4*np.pi*frequency*timeSteps)+1*np.sin(28*np.pi*frequency*timeSteps)
 
-fftResult = FastFourierTransform(signal)
+fftResult = FastFourierTransform(signal);
+
 fftResult_mag=np.abs(fftResult)/len(signal)
 
 f_plot = f[0:int(numberOfSamples/2+1)]
 f_plot_mag = 2*fftResult_mag[0:int(numberOfSamples/2+1)]
 f_plot_mag[0] = f_plot_mag[0]/2
+identifiedFrequencies=[];
+for i,magnitude in enumerate(f_plot_mag):
+  if magnitude>0.8:
+    identifiedFrequencies.append([f_plot[i],magnitude])
 
-fig, [ax1, ax2]=plt.subplots(nrows=2,ncols=1)
-ax1.plot(timeSteps,signal,'.-')
-ax2.plot(f_plot,f_plot_mag,'.-')
-ax2.set_xlim([0, 1000])
 
+
+fig, subplotsUsed=plt.subplots(nrows=len(identifiedFrequencies)+1,ncols=1)
+subplotsUsed[0].plot(timeSteps,signal,'.-')
+for i,signalInformation in enumerate(identifiedFrequencies):
+  decodedFrequency=identifiedFrequencies[i][0]
+  decodedMagnitude=identifiedFrequencies[i][1]
+  decodedSignal=decodedMagnitude*np.sin(2*np.pi*decodedFrequency*timeSteps)
+  subplotsUsed[i+1].plot(timeSteps,decodedSignal,'.-')
 plt.show()
