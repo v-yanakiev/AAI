@@ -12,7 +12,8 @@ fstep=samplingFrequency/numberOfSamples
 f=np.linspace(0,(numberOfSamples-1)*fstep,numberOfSamples)
 signals=[
   np.sin(2*np.pi*frequency*timeSteps),
-  np.sin(2*np.pi*5*frequency*timeSteps)
+  np.sin(2*np.pi*5*frequency*timeSteps),
+  np.sin(2*np.pi*17*frequency*timeSteps),
 ]
 signal=[0.0]*numberOfSamples
 for individualSignal in signals:
@@ -33,9 +34,16 @@ for i,magnitude in enumerate(f_plot_mag):
 
 fig, subplotsUsed=plt.subplots(nrows=len(identifiedFrequencies)+1,ncols=1)
 subplotsUsed[0].plot(timeSteps,signal,'.-')
+subplotsUsed[0].set_xlabel("Time")
+subplotsUsed[0].set_ylabel("Intensity")
+subplotsUsed[0].title.set_text("Original")
 for i,signalInformation in enumerate(identifiedFrequencies):
   decodedFrequency=identifiedFrequencies[i][0]
   decodedMagnitude=identifiedFrequencies[i][1]
   decodedSignal=decodedMagnitude*np.sin(2*np.pi*decodedFrequency*timeSteps)
   subplotsUsed[i+1].plot(timeSteps,decodedSignal,'.-')
+  subplotsUsed[i+1].set_xlabel("Time")
+  subplotsUsed[i+1].set_ylabel("Intensity")
+  subplotsUsed[i+1].title.set_text("Signal #"+str(i+1))
+plt.tight_layout();
 plt.show()
